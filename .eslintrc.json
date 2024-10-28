@@ -1,0 +1,26 @@
+{
+  "ecmaFeatures": {
+    "modules": true,
+    "spread": true,
+    "restParams": true
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": ["airbnb-base", "prettier", "plugin:node/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-unused-vars": "error",
+    "no-console": "off",
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "no-param-reassign": ["error", { "props": false }]
+  }
+}
