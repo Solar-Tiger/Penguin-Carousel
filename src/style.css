@@ -7,10 +7,31 @@ body {
     justify-content: flex-start;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
     padding-left: 0.5rem;
     margin: auto;
     height: 454px;
     max-width: 320px;
     border: 2px solid black;
     overflow-x: hidden;
+
+    & #next,
+    #previous {
+        position: absolute;
+        background-color: #ccc;
+        cursor: pointer;
+    }
+
+    & #next:hover,
+    #previous:hover {
+        background-color: black;
+    }
+
+    & #next {
+        right: 0;
+    }
+
+    & #previous {
+        left: 0;
+    }
 }
