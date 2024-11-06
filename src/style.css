@@ -4,34 +4,32 @@ body {
 
 #penguin-carousel-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    gap: 0.5rem;
     position: relative;
-    padding-left: 0.5rem;
     margin: auto;
     height: 454px;
-    max-width: 320px;
+    max-width: 340px;
     border: 2px solid black;
     overflow-x: hidden;
 
-    & #next,
-    #previous {
+    & #nextButton,
+    #previousButton {
         position: absolute;
         background-color: #ccc;
         cursor: pointer;
     }
 
-    & #next:hover,
-    #previous:hover {
+    & #nextButton:hover,
+    #previousButton:hover {
         background-color: black;
     }
 
-    & #next {
+    & #nextButton {
         right: 0;
     }
 
-    & #previous {
+    & #previousButton {
         left: 0;
     }
 }
