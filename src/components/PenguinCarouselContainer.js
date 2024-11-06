@@ -2,7 +2,7 @@ import nextArrow from '../assets/images/icons/arrow_forward.svg';
 import previousArrow from '../assets/images/icons/arrow_back.svg';
 
 export default function appendPenguinCarousel(penguinsArray) {
-    let currentPenguinImage = 0;
+    let currentPenguinIndex = 0;
 
     // Create Penguin Carousel container
     document.body.appendChild(createDivContainer('penguin-carousel-container'));
@@ -14,22 +14,60 @@ export default function appendPenguinCarousel(penguinsArray) {
     // Create and append penguin image
     function createAndAppendPenguin() {
         penguinCarouselContainer.appendChild(
-            createImage(penguinsArray[currentPenguinImage])
+            createImage(penguinsArray[currentPenguinIndex])
         );
     }
 
-    const previous = document.createElement('img');
-    const next = document.createElement('img');
+    const previousButton = createImage(previousArrow);
+    const nextButton = createImage(nextArrow);
 
-    previous.src = previousArrow;
-    previous.id = 'previous';
+    previousButton.id = 'previousButton';
+    nextButton.id = 'nextButton';
 
-    next.src = nextArrow;
-    next.id = 'next';
+    penguinCarouselContainer.append(previousButton, nextButton);
+
+    // Add image update on next and previous buttons
+    function updateDisplayedPenguin(direction, penguinArray) {
+        if (
+            direction.id === 'nextButton' &&
+            currentPenguinIndex === penguinArray.length - 1
+        ) {
+            currentPenguinIndex = 0;
+        } else if (
+            direction.id === 'previousButton' &&
+            currentPenguinIndex === 0
+        ) {
+            currentPenguinIndex = penguinArray.length - 1;
+        } else if (direction.id === 'nextButton') {
+            currentPenguinIndex++;
+        } else if (direction.id === 'previousButton') {
+            currentPenguinIndex--;
+        }
+
+        penguinCarouselContainer.removeChild(
+            penguinCarouselContainer.lastChild
+        );
+
+        createAndAppendPenguin();
+    }
+
+    // Add event listener on container to prevent having them on separate elements
+    penguinCarouselContainer.addEventListener('click', (e) => {
+        if (e.target.id === 'nextButton') {
+            updateDisplayedPenguin(nextButton, penguinsArray);
+        } else if (e.target.id === 'previousButton') {
+            updateDisplayedPenguin(previousButton, penguinsArray);
+        }
+    });
+
+    // Automatically advance 1 image every 5 seconds
+    function autoAdvanceCarousel() {
+        updateDisplayedPenguin(nextButton, penguinsArray);
+    }
+
+    setInterval(autoAdvanceCarousel, 5000);
 
     createAndAppendPenguin();
-
-    penguinCarouselContainer.append(previous, next);
 }
 
 function createDivContainer(divID) {
