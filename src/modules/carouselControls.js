@@ -25,6 +25,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
         );
 
         clearInterval(intervalID);
+        startInterval(intervalID);
     });
 
     // Chages image when a dot is clicked and updates index, displayed image and carousel dot accordingly
@@ -38,17 +39,14 @@ function carouselControls(imageArray, intervalTime = 5000) {
         updateDisplayedImage(displayedImage, imageArray[carouselDotIndex]);
         updateDisplayedCarouselDot(carouselDotsSelected, carouselDotIndex);
         clearInterval(intervalID);
+        startInterval(intervalID);
 
         currentImageIndex = carouselDotIndex;
     });
 }
 
-function pauseAutoAdvancingSlide(myIntervalID) {
-    function clearMyInterval() {
-        clearInterval(myIntervalID);
-    }
-
-    setInterval(clearMyInterval, 6000);
+function startInterval(myIntervalID) {
+    setInterval(myIntervalID, 20000);
 }
 
 function updateDisplayedPenguin(
