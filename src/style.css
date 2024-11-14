@@ -1,35 +1,76 @@
+:root {
+    --container-border-color: black;
+    --button-bg-color: #ccc;
+    --button-hover-color: #222;
+}
+
 body {
     background-color: #ddd;
 }
 
-#penguin-carousel-container {
+.carousel-container,
+.carousel-image-container,
+.carousel-dots-container {
     display: flex;
-    justify-content: center;
     align-items: center;
+}
+
+.carousel-container {
+    justify-content: center;
+    flex-direction: column;
     position: relative;
-    margin: auto;
+    border: 2px solid var(--container-border-color);
+    margin: 0.5rem;
+}
+
+.carousel-image-container {
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 454px;
-    max-width: 340px;
-    border: 2px solid black;
     overflow-x: hidden;
+}
 
-    & #nextButton,
-    #previousButton {
-        position: absolute;
-        background-color: #ccc;
-        cursor: pointer;
-    }
+.next-button,
+.previous-button {
+    position: absolute;
+    background-color: var(--button-bg-color);
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
 
-    & #nextButton:hover,
-    #previousButton:hover {
-        background-color: black;
-    }
+.next-button:hover,
+.previous-button:hover {
+    background-color: var(--button-hover-color);
+}
 
-    & #nextButton {
-        right: 0;
-    }
+.next-button {
+    right: 0;
+}
 
-    & #previousButton {
-        left: 0;
-    }
+.previous-button {
+    left: 0;
+}
+
+.carousel-dots-container {
+    justify-content: space-evenly;
+    height: 40px;
+    width: 200px;
+}
+
+.carousel-dot {
+    height: 1rem;
+    width: 1rem;
+    border: 2px solid var(--container-border-color);
+    border-radius: 50%;
+    transition: background-color 0.5s ease;
+}
+
+.carousel-dot:hover {
+    cursor: pointer;
+    background-color: var(--button-hover-color);
+}
+
+.carousel-dot-active {
+    background-color: black;
 }
