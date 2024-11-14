@@ -8,6 +8,13 @@ function carouselControls(imageArray, intervalTime = 5000) {
     );
     const carouselDotsSelected = document.querySelectorAll('.carousel-dot');
 
+    // Auto advance slides 1 image to show newly added penguins
+    const intervalID = setInterval(
+        () =>
+            autoAdvanceSlide(imageArray, displayedImage, carouselDotsSelected),
+        intervalTime
+    );
+
     // Change displayed image based on which arrow is clicked
     carouselController.addEventListener('click', (e) => {
         updateDisplayedPenguin(
@@ -16,6 +23,8 @@ function carouselControls(imageArray, intervalTime = 5000) {
             displayedImage,
             carouselDotsSelected
         );
+
+        clearInterval(intervalID);
     });
 
     // Chages image when a dot is clicked and updates index, displayed image and carousel dot accordingly
@@ -28,16 +37,10 @@ function carouselControls(imageArray, intervalTime = 5000) {
 
         updateDisplayedImage(displayedImage, imageArray[carouselDotIndex]);
         updateDisplayedCarouselDot(carouselDotsSelected, carouselDotIndex);
+        clearInterval(intervalID);
 
         currentImageIndex = carouselDotIndex;
     });
-
-    // Auto advance slides 1 image to show newly added penguins
-    const intervalID = setInterval(
-        () =>
-            autoAdvanceSlide(imageArray, displayedImage, carouselDotsSelected),
-        intervalTime
-    );
 }
 
 function pauseAutoAdvancingSlide(myIntervalID) {
