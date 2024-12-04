@@ -10,15 +10,24 @@ function createCarousel(imageArray) {
 
     document.body.appendChild(carouselContainer);
 
-    // Create carousel image container
+    // Create and append carousel image container
     const carouselImageContainer = createContainer('carousel-image-container');
 
     carouselContainer.appendChild(carouselImageContainer);
 
-    // Create and append initial penguin image
-    const initialImage = createImageElement(imageArray[0]);
+    // Create and append carousel images container
+    const carouselImagesContainer = createContainer(
+        'carousel-images-container'
+    );
 
-    carouselImageContainer.appendChild(initialImage);
+    carouselImageContainer.appendChild(carouselImagesContainer);
+
+    // Create and append all images
+    imageArray.forEach((image) => {
+        const initialImage = createImageElement(image);
+
+        carouselImagesContainer.appendChild(initialImage);
+    });
 
     // Create and append next and previous buttons
     const previousButton = createImageElement(previousArrow, 'previous-button');
@@ -39,6 +48,10 @@ function createCarousel(imageArray) {
 
         carouselDotsContainer.appendChild(carouselDot);
     }
+
+    nextButton.addEventListener('click', () => {
+        console.log('Test');
+    });
 }
 
 // Create div containers
