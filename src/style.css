@@ -10,6 +10,7 @@ body {
 
 .carousel-container,
 .carousel-image-container,
+.carousel-images-container,
 .carousel-dots-container {
     display: flex;
     align-items: center;
@@ -28,6 +29,10 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     height: 454px;
+    max-width: 340px;
+}
+
+.carousel-images-container {
     overflow-x: hidden;
 }
 
