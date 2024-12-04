@@ -9,6 +9,7 @@ import glacialBeastPolarPenguin from './assets/images/displayed-penguins/glacial
 import guardPenguin from './assets/images/displayed-penguins/guard-penguin.webp';
 
 const penguinImages = [
+    guardPenguin,
     boltPenguin,
     fluffalPenguin,
     flyingPenguin,
@@ -17,4 +18,4 @@ const penguinImages = [
 ];
 
 createCarousel(penguinImages);
-changeDisplayedPenguin(penguinImages);
+// changeDisplayedPenguin(penguinImages);
