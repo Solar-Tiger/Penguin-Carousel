@@ -31,7 +31,8 @@ body {
 }
 
 .carousel-image-frame {
-    transform: translateX(0px);
+    /* transform: translateX(0px); */
+    transition: transform 2s ease;
     gap: 5px;
 }
 
