@@ -17,4 +17,4 @@ const penguinImages = [
 ];
 
 createCarousel(penguinImages);
-// changeDisplayedPenguin(penguinImages, 1000);
+changeDisplayedPenguin(penguinImages);
