@@ -20,35 +20,44 @@ function carouselControls(imageArray, intervalTime = 5000) {
             return;
 
         if (e.target.classList.contains('next-button')) {
-            currentDisplayedImagePosition +=
-                -carouselImage.clientWidth - carouselImageFramePadding;
-            currentImageIndex++;
-
-            if (currentImageIndex % imageArray.length === 0) {
-                currentImageIndex = 0;
-                currentDisplayedImagePosition = 0;
-            }
+            nextButton(carouselImage, carouselImageFramePadding, imageArray);
         }
 
         if (e.target.classList.contains('previous-button')) {
-            currentDisplayedImagePosition +=
-                carouselImage.clientWidth + carouselImageFramePadding;
-            currentImageIndex--;
-
-            if (currentImageIndex < 0) {
-                currentImageIndex = imageArray.length - 1;
-                currentDisplayedImagePosition = -(
-                    carouselImage.clientWidth * (imageArray.length - 1) +
-                    (imageArray.length - 1) *
-                        parseInt(carouselImageFramePadding)
-                );
-            }
+            previousButton(
+                carouselImage,
+                carouselImageFramePadding,
+                imageArray
+            );
         }
 
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
 
         updateActiveCarouselDot(carouselDotsSelected);
     });
+}
+
+function nextButton(carouselImg, framePadding, imgArray) {
+    currentDisplayedImagePosition += -carouselImg.clientWidth - framePadding;
+    currentImageIndex++;
+
+    if (currentImageIndex % imgArray.length === 0) {
+        currentImageIndex = 0;
+        currentDisplayedImagePosition = 0;
+    }
+}
+
+function previousButton(carouselImg, framePadding, imgArray) {
+    currentDisplayedImagePosition += carouselImg.clientWidth + framePadding;
+    currentImageIndex--;
+
+    if (currentImageIndex < 0) {
+        currentImageIndex = imgArray.length - 1;
+        currentDisplayedImagePosition = -(
+            carouselImg.clientWidth * (imgArray.length - 1) +
+            (imgArray.length - 1) * parseInt(framePadding)
+        );
+    }
 }
 
 function updateActiveCarouselDot(carouselDots) {
