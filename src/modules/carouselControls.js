@@ -11,14 +11,36 @@ function carouselControls(imageArray, intervalTime = 5000) {
     );
     const carouselDotsSelected = document.querySelectorAll('.carousel-dot');
 
+    // Get padding of carousel image frame
+    let carouselImageFramePadding = window
+        .getComputedStyle(carouselImageFrame)
+        .getPropertyValue('padding');
+
     nextCarouselBtn.addEventListener('click', () => {
-        currentDisplayedImagePosition += -carouselImage.clientWidth - 5;
+        currentDisplayedImagePosition +=
+            -carouselImage.clientWidth - parseInt(carouselImageFramePadding);
+        currentImageIndex++;
+
+        if (currentImageIndex % imageArray.length === 0) {
+            currentImageIndex = 0;
+            currentDisplayedImagePosition = 0;
+        }
 
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
     });
 
     previousCarouselBtn.addEventListener('click', () => {
-        currentDisplayedImagePosition += carouselImage.clientWidth + 5;
+        currentDisplayedImagePosition +=
+            carouselImage.clientWidth + parseInt(carouselImageFramePadding);
+        currentImageIndex--;
+
+        if (currentImageIndex < 0) {
+            currentImageIndex = imageArray.length - 1;
+            currentDisplayedImagePosition = -(
+                carouselImage.clientWidth * (imageArray.length - 1) +
+                (imageArray.length - 1) * parseInt(carouselImageFramePadding)
+            );
+        }
 
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
     });
