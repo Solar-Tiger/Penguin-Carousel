@@ -25,13 +25,12 @@ body {
 
 .carousel-image-container {
     max-width: 304px;
-    padding: 5px;
     overflow-x: hidden;
     border: 2px solid var(--container-border-color);
 }
 
 .carousel-image-frame {
-    /* transform: translateX(0px); */
+    padding: 5px;
     transition: transform 0.5s ease;
     gap: 5px;
 }
