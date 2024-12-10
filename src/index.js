@@ -1,5 +1,5 @@
-import './style.css';
 import './reset.css';
+import './style.css';
 import { createCarousel } from './components/CarouselContainer';
 import { carouselControls as changeDisplayedPenguin } from './modules/carouselControls';
 import boltPenguin from './assets/images/displayed-penguins/bolt-penguin.webp';
