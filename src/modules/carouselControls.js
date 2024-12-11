@@ -27,10 +27,6 @@ function carouselControls(imageArray, intervalTime = 5000) {
             );
         }
 
-        carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
-
-        updateActiveCarouselDot(carouselDotsSelected, currentImageIndex);
-
         if (e.target.classList.contains('carousel-dot')) {
             updateCarouselDotOnClick(
                 carouselDotsSelected,
@@ -40,6 +36,10 @@ function carouselControls(imageArray, intervalTime = 5000) {
                 carouselImageFrame
             );
         }
+
+        carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
+
+        updateActiveCarouselDot(carouselDotsSelected, currentImageIndex);
     });
 
     function moveToNextImage(carouselImg, framePadding, imgArray) {
@@ -61,7 +61,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
             currentImageIndex = imgArray.length - 1;
             currentDisplayedImagePosition = -(
                 carouselImg.clientWidth * (imgArray.length - 1) +
-                (imgArray.length - 1) * parseInt(framePadding)
+                (imgArray.length - 1) * framePadding
             );
         }
     }
@@ -92,9 +92,12 @@ function carouselControls(imageArray, intervalTime = 5000) {
         });
 
         clickedDot.classList.add('carousel-dot-active');
+
         currentImageIndex = clickedDot.dataset.carouselDot;
+
         currentDisplayedImagePosition =
             (-img.clientWidth - padding) * clickedDot.dataset.carouselDot;
+
         imageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
     }
 }
