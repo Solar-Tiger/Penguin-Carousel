@@ -1,7 +1,7 @@
-let currentImageIndex = 0;
-let currentDisplayedImagePosition = 0;
-
 function carouselControls(imageArray, intervalTime = 5000) {
+    let currentImageIndex = 0;
+    let currentDisplayedImagePosition = 0;
+
     const carouselContainer = document.querySelector('#carousel-controller');
     const carouselImage = document.querySelector('.carousel-image-frame img');
     const carouselImageFrame = document.querySelector('.carousel-image-frame');
@@ -13,61 +13,53 @@ function carouselControls(imageArray, intervalTime = 5000) {
     );
 
     carouselContainer.addEventListener('click', (e) => {
-        if (
-            !e.target.classList.contains('next-button') &&
-            !e.target.classList.contains('previous-button')
-        )
-            return;
-
         if (e.target.classList.contains('next-button')) {
-            nextButton(carouselImage, carouselImageFramePadding, imageArray);
-        }
-
-        if (e.target.classList.contains('previous-button')) {
-            previousButton(
-                carouselImage,
-                carouselImageFramePadding,
-                imageArray
-            );
+            moveToNextImage();
+        } else if (e.target.classList.contains('previous-button')) {
+            moveToPreviousImage();
         }
 
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
 
         updateActiveCarouselDot(carouselDotsSelected);
     });
-}
 
-function nextButton(carouselImg, framePadding, imgArray) {
-    currentDisplayedImagePosition += -carouselImg.clientWidth - framePadding;
-    currentImageIndex++;
+    function moveToNextImage() {
+        currentDisplayedImagePosition +=
+            -carouselImage.clientWidth - carouselImageFramePadding;
+        currentImageIndex++;
 
-    if (currentImageIndex % imgArray.length === 0) {
-        currentImageIndex = 0;
-        currentDisplayedImagePosition = 0;
+        if (currentImageIndex % imageArray.length === 0) {
+            currentImageIndex = 0;
+            currentDisplayedImagePosition = 0;
+        }
     }
-}
 
-function previousButton(carouselImg, framePadding, imgArray) {
-    currentDisplayedImagePosition += carouselImg.clientWidth + framePadding;
-    currentImageIndex--;
+    function moveToPreviousImage() {
+        currentDisplayedImagePosition +=
+            carouselImage.clientWidth + carouselImageFramePadding;
+        currentImageIndex--;
 
-    if (currentImageIndex < 0) {
-        currentImageIndex = imgArray.length - 1;
-        currentDisplayedImagePosition = -(
-            carouselImg.clientWidth * (imgArray.length - 1) +
-            (imgArray.length - 1) * parseInt(framePadding)
+        if (currentImageIndex < 0) {
+            currentImageIndex = imageArray.length - 1;
+            currentDisplayedImagePosition = -(
+                carouselImage.clientWidth * (imageArray.length - 1) +
+                (imageArray.length - 1) * parseInt(carouselImageFramePadding)
+            );
+        }
+    }
+
+    function updateActiveCarouselDot(carouselDots) {
+        const activeCarouselDot = document.querySelector(
+            '.carousel-dot-active'
         );
+
+        if (activeCarouselDot) {
+            activeCarouselDot.classList.remove('carousel-dot-active');
+        }
+
+        carouselDots[currentImageIndex].classList.add('carousel-dot-active');
     }
-}
-
-function updateActiveCarouselDot(carouselDots) {
-    const activeCarouselDot = document.querySelector('.carousel-dot-active');
-
-    if (activeCarouselDot) {
-        activeCarouselDot.classList.remove('carousel-dot-active');
-    }
-
-    carouselDots[currentImageIndex].classList.add('carousel-dot-active');
 }
 
 export { carouselControls };
