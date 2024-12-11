@@ -14,9 +14,17 @@ function carouselControls(imageArray, intervalTime = 5000) {
 
     carouselContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('next-button')) {
-            moveToNextImage();
+            moveToNextImage(
+                carouselImage,
+                carouselImageFramePadding,
+                imageArray
+            );
         } else if (e.target.classList.contains('previous-button')) {
-            moveToPreviousImage();
+            moveToPreviousImage(
+                carouselImage,
+                carouselImageFramePadding,
+                imageArray
+            );
         }
 
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
@@ -24,27 +32,26 @@ function carouselControls(imageArray, intervalTime = 5000) {
         updateActiveCarouselDot(carouselDotsSelected);
     });
 
-    function moveToNextImage() {
+    function moveToNextImage(carouselImg, framePadding, imgArray) {
         currentDisplayedImagePosition +=
-            -carouselImage.clientWidth - carouselImageFramePadding;
+            -carouselImg.clientWidth - framePadding;
         currentImageIndex++;
 
-        if (currentImageIndex % imageArray.length === 0) {
+        if (currentImageIndex % imgArray.length === 0) {
             currentImageIndex = 0;
             currentDisplayedImagePosition = 0;
         }
     }
 
-    function moveToPreviousImage() {
-        currentDisplayedImagePosition +=
-            carouselImage.clientWidth + carouselImageFramePadding;
+    function moveToPreviousImage(carouselImg, framePadding, imgArray) {
+        currentDisplayedImagePosition += carouselImg.clientWidth + framePadding;
         currentImageIndex--;
 
         if (currentImageIndex < 0) {
-            currentImageIndex = imageArray.length - 1;
+            currentImageIndex = imgArray.length - 1;
             currentDisplayedImagePosition = -(
-                carouselImage.clientWidth * (imageArray.length - 1) +
-                (imageArray.length - 1) * parseInt(carouselImageFramePadding)
+                carouselImg.clientWidth * (imgArray.length - 1) +
+                (imgArray.length - 1) * parseInt(framePadding)
             );
         }
     }
