@@ -85,18 +85,12 @@ function carouselControls(imageArray, intervalTime = 5000) {
         padding,
         imageFrame
     ) {
-        carouselDots.forEach((dot) => {
-            if (dot.classList.contains('carousel-dot-active')) {
-                dot.classList.remove('carousel-dot-active');
-            }
-        });
-
-        clickedDot.classList.add('carousel-dot-active');
-
         currentImageIndex = clickedDot.dataset.carouselDot;
 
+        updateActiveCarouselDot(carouselDots, currentImageIndex);
+
         currentDisplayedImagePosition =
-            (-img.clientWidth - padding) * clickedDot.dataset.carouselDot;
+            (-img.clientWidth - padding) * currentImageIndex;
 
         imageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
     }
