@@ -42,6 +42,8 @@ function createCarousel(imageArray) {
     for (let i = 0; i < imageArray.length; i++) {
         const carouselDot = createContainer('carousel-dot');
 
+        carouselDot.dataset.carouselDot = i;
+
         if (i === 0) carouselDot.classList.add('carousel-dot-active');
 
         carouselDotsContainer.appendChild(carouselDot);
