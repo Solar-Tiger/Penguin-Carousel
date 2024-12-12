@@ -26,10 +26,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
     function moveToNextImage() {
         currentImageIndex++;
 
-        if (currentImageIndex % imageArray.length === 0) {
-            currentImageIndex = 0;
-        }
-
+        loopImageCarousel();
         updateDisplayedImagePoistion();
         updateActiveCarouselDot(currentImageIndex);
     }
@@ -37,10 +34,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
     function moveToPreviousImage() {
         currentImageIndex--;
 
-        if (currentImageIndex < 0) {
-            currentImageIndex = imageArray.length - 1;
-        }
-
+        loopImageCarousel();
         updateDisplayedImagePoistion();
         updateActiveCarouselDot(currentImageIndex);
     }
@@ -51,6 +45,14 @@ function carouselControls(imageArray, intervalTime = 5000) {
         updateDisplayedImagePoistion();
 
         updateActiveCarouselDot(clickedDot.dataset.carouselDot);
+    }
+
+    function loopImageCarousel() {
+        if (currentImageIndex % imageArray.length === 0) {
+            currentImageIndex = 0;
+        } else if (currentImageIndex < 0) {
+            currentImageIndex = imageArray.length - 1;
+        }
     }
 
     function updateActiveCarouselDot(currentIndex) {
