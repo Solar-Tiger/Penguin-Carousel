@@ -24,31 +24,24 @@ function carouselControls(imageArray, intervalTime = 5000) {
     });
 
     function moveToNextImage() {
-        currentDisplayedImagePosition +=
-            -carouselImage.clientWidth - carouselImageFramePadding;
         currentImageIndex++;
 
         if (currentImageIndex % imageArray.length === 0) {
             currentImageIndex = 0;
-            currentDisplayedImagePosition = 0;
         }
 
+        updateDisplayedImagePoistion();
         updateImageAndDot(currentImageIndex);
     }
 
     function moveToPreviousImage() {
-        currentDisplayedImagePosition +=
-            carouselImage.clientWidth + carouselImageFramePadding;
         currentImageIndex--;
 
         if (currentImageIndex < 0) {
             currentImageIndex = imageArray.length - 1;
-            currentDisplayedImagePosition = -(
-                carouselImage.clientWidth * (imageArray.length - 1) +
-                (imageArray.length - 1) * carouselImageFramePadding
-            );
         }
 
+        updateDisplayedImagePoistion();
         updateImageAndDot(currentImageIndex);
     }
 
@@ -67,9 +60,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
     function updateCarouselDotOnClick(clickedDot) {
         currentImageIndex = clickedDot.dataset.carouselDot;
 
-        currentDisplayedImagePosition =
-            (-carouselImage.clientWidth - carouselImageFramePadding) *
-            currentImageIndex;
+        updateDisplayedImagePoistion();
 
         updateImageAndDot(clickedDot.dataset.carouselDot);
     }
@@ -78,10 +69,21 @@ function carouselControls(imageArray, intervalTime = 5000) {
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
     }
 
+    function updateDisplayedImagePoistion() {
+        currentDisplayedImagePosition =
+            (-carouselImage.clientWidth + -carouselImageFramePadding) *
+            currentImageIndex;
+
+        handleImageTransition();
+    }
+
     function updateImageAndDot(imgIndex) {
         handleImageTransition();
         updateActiveCarouselDot(imgIndex);
     }
+
+    // Resize the image if the window size changes
+    window.addEventListener('resize', updateDisplayedImagePoistion);
 }
 
 export { carouselControls };
