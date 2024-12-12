@@ -31,7 +31,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
         }
 
         updateDisplayedImagePoistion();
-        updateImageAndDot(currentImageIndex);
+        updateActiveCarouselDot(currentImageIndex);
     }
 
     function moveToPreviousImage() {
@@ -42,7 +42,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
         }
 
         updateDisplayedImagePoistion();
-        updateImageAndDot(currentImageIndex);
+        updateActiveCarouselDot(currentImageIndex);
     }
 
     function updateActiveCarouselDot(currentIndex) {
@@ -62,7 +62,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
 
         updateDisplayedImagePoistion();
 
-        updateImageAndDot(clickedDot.dataset.carouselDot);
+        updateActiveCarouselDot(clickedDot.dataset.carouselDot);
     }
 
     function handleImageTransition() {
@@ -75,11 +75,6 @@ function carouselControls(imageArray, intervalTime = 5000) {
             currentImageIndex;
 
         handleImageTransition();
-    }
-
-    function updateImageAndDot(imgIndex) {
-        handleImageTransition();
-        updateActiveCarouselDot(imgIndex);
     }
 
     // Resize the image if the window size changes
