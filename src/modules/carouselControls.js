@@ -45,6 +45,14 @@ function carouselControls(imageArray, intervalTime = 5000) {
         updateActiveCarouselDot(currentImageIndex);
     }
 
+    function updateCarouselDotOnClick(clickedDot) {
+        currentImageIndex = clickedDot.dataset.carouselDot;
+
+        updateDisplayedImagePoistion();
+
+        updateActiveCarouselDot(clickedDot.dataset.carouselDot);
+    }
+
     function updateActiveCarouselDot(currentIndex) {
         const activeCarouselDot = document.querySelector(
             '.carousel-dot-active'
@@ -55,14 +63,6 @@ function carouselControls(imageArray, intervalTime = 5000) {
         }
 
         carouselDots[currentIndex].classList.add('carousel-dot-active');
-    }
-
-    function updateCarouselDotOnClick(clickedDot) {
-        currentImageIndex = clickedDot.dataset.carouselDot;
-
-        updateDisplayedImagePoistion();
-
-        updateActiveCarouselDot(clickedDot.dataset.carouselDot);
     }
 
     function handleImageTransition() {
