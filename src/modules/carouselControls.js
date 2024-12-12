@@ -5,7 +5,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
     const carouselContainer = document.querySelector('#carousel-controller');
     const carouselImage = document.querySelector('.carousel-image-frame img');
     const carouselImageFrame = document.querySelector('.carousel-image-frame');
-    const carouselDotsSelected = document.querySelectorAll('.carousel-dot');
+    const carouselDots = document.querySelectorAll('.carousel-dot');
 
     // Get padding of carousel image frame and convert it to a number
     let carouselImageFramePadding = parseInt(
@@ -17,21 +17,10 @@ function carouselControls(imageArray, intervalTime = 5000) {
             moveToNextImage();
         } else if (e.target.classList.contains('previous-button')) {
             moveToPreviousImage();
+        } else if (e.target.classList.contains('carousel-dot')) {
+            updateCarouselDotOnClick(e.target);
+            return;
         }
-
-        if (e.target.classList.contains('carousel-dot')) {
-            updateCarouselDotOnClick(
-                carouselDotsSelected,
-                e.target,
-                carouselImage,
-                carouselImageFramePadding,
-                carouselImageFrame
-            );
-        }
-
-        carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
-
-        updateActiveCarouselDot(carouselDotsSelected, currentImageIndex);
     });
 
     function moveToNextImage() {
@@ -43,6 +32,8 @@ function carouselControls(imageArray, intervalTime = 5000) {
             currentImageIndex = 0;
             currentDisplayedImagePosition = 0;
         }
+
+        updateImageAndDot(currentImageIndex);
     }
 
     function moveToPreviousImage() {
@@ -57,9 +48,11 @@ function carouselControls(imageArray, intervalTime = 5000) {
                 (imageArray.length - 1) * carouselImageFramePadding
             );
         }
+
+        updateImageAndDot(currentImageIndex);
     }
 
-    function updateActiveCarouselDot(carouselDots, currentIndex) {
+    function updateActiveCarouselDot(currentIndex) {
         const activeCarouselDot = document.querySelector(
             '.carousel-dot-active'
         );
@@ -71,21 +64,23 @@ function carouselControls(imageArray, intervalTime = 5000) {
         carouselDots[currentIndex].classList.add('carousel-dot-active');
     }
 
-    function updateCarouselDotOnClick(
-        carouselDots,
-        clickedDot,
-        img,
-        padding,
-        imageFrame
-    ) {
+    function updateCarouselDotOnClick(clickedDot) {
         currentImageIndex = clickedDot.dataset.carouselDot;
 
-        updateActiveCarouselDot(carouselDots, currentImageIndex);
-
         currentDisplayedImagePosition =
-            (-img.clientWidth - padding) * currentImageIndex;
+            (-carouselImage.clientWidth - carouselImageFramePadding) *
+            currentImageIndex;
 
-        imageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
+        updateImageAndDot(clickedDot.dataset.carouselDot);
+    }
+
+    function handleImageTransition() {
+        carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
+    }
+
+    function updateImageAndDot(imgIndex) {
+        handleImageTransition();
+        updateActiveCarouselDot(imgIndex);
     }
 }
 
