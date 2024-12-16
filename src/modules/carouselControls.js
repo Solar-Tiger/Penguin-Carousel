@@ -1,5 +1,5 @@
 function carouselControls(imageArray, intervalTime = 5000) {
-    if (!imageArray) return;
+    if (!Array.isArray(imageArray)) return;
 
     let currentImageIndex = 0;
     let currentDisplayedImagePosition = 0;
