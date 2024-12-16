@@ -39,7 +39,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
         currentImageIndex++;
 
         loopImageCarousel();
-        updateDisplayedImagePoistion();
+        updateDisplayedImagePosition();
         updateActiveCarouselDot(currentImageIndex);
     }
 
@@ -47,14 +47,14 @@ function carouselControls(imageArray, intervalTime = 5000) {
         currentImageIndex--;
 
         loopImageCarousel();
-        updateDisplayedImagePoistion();
+        updateDisplayedImagePosition();
         updateActiveCarouselDot(currentImageIndex);
     }
 
     function updateCarouselDotOnClick(clickedDot) {
         currentImageIndex = clickedDot.dataset.carouselDot;
 
-        updateDisplayedImagePoistion();
+        updateDisplayedImagePosition();
 
         updateActiveCarouselDot(clickedDot.dataset.carouselDot);
     }
@@ -83,7 +83,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
         carouselImageFrame.style.transform = `translateX(${currentDisplayedImagePosition}px)`;
     }
 
-    function updateDisplayedImagePoistion() {
+    function updateDisplayedImagePosition() {
         currentDisplayedImagePosition =
             (-carouselImage.clientWidth + -carouselImageFramePadding) *
             currentImageIndex;
@@ -105,7 +105,7 @@ function carouselControls(imageArray, intervalTime = 5000) {
     }
 
     // Resize the image if the window size changes
-    window.addEventListener('resize', updateDisplayedImagePoistion);
+    window.addEventListener('resize', updateDisplayedImagePosition);
 }
 
 export { carouselControls };
