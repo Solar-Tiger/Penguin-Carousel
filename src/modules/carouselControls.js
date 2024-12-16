@@ -1,6 +1,7 @@
 function carouselControls(imageArray, intervalTime = 5000) {
     let currentImageIndex = 0;
     let currentDisplayedImagePosition = 0;
+    let autoAdvanceSlide;
 
     const carouselContainer = document.querySelector('#carousel-controller');
     const carouselImage = document.querySelector('.carousel-image-frame img');
@@ -19,8 +20,8 @@ function carouselControls(imageArray, intervalTime = 5000) {
             moveToPreviousImage();
         } else if (e.target.classList.contains('carousel-dot')) {
             updateCarouselDotOnClick(e.target);
-            return;
         }
+        resetAutoAdvanceSlide();
     });
 
     function moveToNextImage() {
@@ -77,6 +78,18 @@ function carouselControls(imageArray, intervalTime = 5000) {
             currentImageIndex;
 
         handleImageTransition();
+    }
+
+    // Set and reset slides auto advancing
+    autoAdvanceSlide = setInterval(moveToNextImage, intervalTime);
+
+    function resetAutoAdvanceSlide() {
+        clearInterval(autoAdvanceSlide);
+
+        setTimeout(
+            (autoAdvanceSlide = setInterval(moveToNextImage, intervalTime)),
+            15000
+        );
     }
 
     // Resize the image if the window size changes
