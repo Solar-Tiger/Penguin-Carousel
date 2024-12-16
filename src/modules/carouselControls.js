@@ -16,12 +16,24 @@ function carouselControls(imageArray, intervalTime = 5000) {
     carouselContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('next-button')) {
             moveToNextImage();
+            resetAutoAdvanceSlide();
         } else if (e.target.classList.contains('previous-button')) {
             moveToPreviousImage();
+            resetAutoAdvanceSlide();
         } else if (e.target.classList.contains('carousel-dot')) {
             updateCarouselDotOnClick(e.target);
+            resetAutoAdvanceSlide();
         }
-        resetAutoAdvanceSlide();
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'ArrowRight') {
+            moveToNextImage();
+            resetAutoAdvanceSlide();
+        } else if (e.code === 'ArrowLeft') {
+            moveToPreviousImage();
+            resetAutoAdvanceSlide();
+        }
     });
 
     function moveToNextImage() {
@@ -86,10 +98,9 @@ function carouselControls(imageArray, intervalTime = 5000) {
     function resetAutoAdvanceSlide() {
         clearInterval(autoAdvanceSlide);
 
-        setTimeout(
-            (autoAdvanceSlide = setInterval(moveToNextImage, intervalTime)),
-            15000
-        );
+        setTimeout(() => {
+            autoAdvanceSlide = setInterval(moveToNextImage, intervalTime);
+        }, 15000);
     }
 
     // Resize the image if the window size changes
