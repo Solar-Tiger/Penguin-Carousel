@@ -1,7 +1,7 @@
 import './reset.css';
 import './style.css';
 import { createCarousel } from './components/CarouselContainer';
-import { carouselControls as changeDisplayedPenguin } from './modules/carouselControls';
+import { carouselControls } from './modules/carouselControls';
 import boltPenguin from './assets/images/displayed-penguins/bolt-penguin.webp';
 import fluffalPenguin from './assets/images/displayed-penguins/fluffal-penguin.webp';
 import flyingPenguin from './assets/images/displayed-penguins/flying-penguin.webp';
@@ -17,4 +17,4 @@ const penguinImages = [
 ];
 
 createCarousel(penguinImages);
-changeDisplayedPenguin(penguinImages);
+carouselControls(penguinImages);
