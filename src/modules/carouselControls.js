@@ -1,7 +1,6 @@
 function carouselControls(imageArray, intervalTime = 5000) {
     let currentImageIndex = 0;
     let currentDisplayedImagePosition = 0;
-    let autoAdvanceSlide;
 
     const carouselContainer = document.querySelector('#carousel-controller');
     const carouselImage = document.querySelector('.carousel-image-frame img');
@@ -93,14 +92,16 @@ function carouselControls(imageArray, intervalTime = 5000) {
     }
 
     // Set and reset slides auto advancing
-    autoAdvanceSlide = setInterval(moveToNextImage, intervalTime);
+    let autoAdvanceSlide = setInterval(moveToNextImage, intervalTime);
+    let clearTimeouts;
 
     function resetAutoAdvanceSlide() {
         clearInterval(autoAdvanceSlide);
+        clearTimeout(clearTimeouts);
 
-        setTimeout(() => {
+        clearTimeouts = setTimeout(() => {
             autoAdvanceSlide = setInterval(moveToNextImage, intervalTime);
-        }, 15000);
+        }, 10000);
     }
 
     // Resize the image if the window size changes
